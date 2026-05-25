@@ -252,7 +252,8 @@ const Announcements = () => {
       item.title.toLowerCase().includes(search.toLowerCase()) ||
       item.content.toLowerCase().includes(search.toLowerCase());
     
-    const matchesCategory = selectedCategory ? item.category?._id === selectedCategory : true;
+    const categoryId = item.category?._id?.toString?.() || item.category?.toString?.() || '';
+    const matchesCategory = selectedCategory ? categoryId === selectedCategory : true;
     const matchesPriority = selectedPriority ? item.priority === selectedPriority : true;
 
     return matchesSearch && matchesCategory && matchesPriority;
