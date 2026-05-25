@@ -254,17 +254,18 @@ const Announcements = () => {
 
   const resolveCategoryValue = (category) => {
     if (!category) {
-      return { id: '', name: 'Uncategorized', colorHex: '#3B82F6' };
+      return { id: '', name: 'Uncategorized', colorHex: '#3B82F6', description: '' };
     }
 
     if (typeof category === 'string') {
-      return { id: category, name: category, colorHex: '#3B82F6' };
+      return { id: category, name: category, colorHex: '#3B82F6', description: '' };
     }
 
     const id = category._id?.toString?.() || category.toString?.() || '';
     const name = category.name || category.toString?.() || 'Uncategorized';
     const colorHex = category.colorHex || '#3B82F6';
-    return { id, name, colorHex };
+    const description = category.description || '';
+    return { id, name, colorHex, description };
   };
 
   // Client side search and filters mapping
@@ -365,7 +366,11 @@ const Announcements = () => {
           className="block w-full px-3 py-2 bg-gray-900 border border-gray-800 rounded-xl text-xs text-white focus:outline-none"
         >
           <option value="">All Categories</option>
-          {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+          {categories.map(c => (
+            <option key={c._id} value={c._id} title={c.description}>
+              {c.name}{c.description ? ` — ${c.description}` : ''}
+            </option>
+          ))}
         </select>
 
         <select
@@ -417,10 +422,14 @@ const Announcements = () => {
                       </span>
                     )}
                     <span 
+                      title={resolveCategoryValue(ann.category).description}
                       style={getCategoryTagColor(resolveCategoryValue(ann.category).colorHex)}
                       className="text-[9px] font-extrabold uppercase border px-2 py-0.5 rounded-full tracking-wider"
                     >
-                      {resolveCategoryValue(ann.category).name}
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: resolveCategoryValue(ann.category).colorHex }} />
+                        {resolveCategoryValue(ann.category).name}
+                      </span>
                     </span>
                   </div>
                   {/* Bookmark Button */}
@@ -483,10 +492,14 @@ const Announcements = () => {
                 {detailsModal.priority}
               </span>
               <span 
+                title={resolveCategoryValue(detailsModal.category).description}
                 style={getCategoryTagColor(resolveCategoryValue(detailsModal.category).colorHex)}
                 className="font-bold uppercase border px-2.5 py-0.5 rounded-full"
               >
-                {resolveCategoryValue(detailsModal.category).name}
+                <span className="inline-flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: resolveCategoryValue(detailsModal.category).colorHex }} />
+                  {resolveCategoryValue(detailsModal.category).name}
+                </span>
               </span>
               <span className="text-gray-500 font-mono">Target: {detailsModal.targetAudience.toUpperCase()} {detailsModal.targetValue && `(${detailsModal.targetValue})`}</span>
             </div>
@@ -767,7 +780,11 @@ const Announcements = () => {
                   required
                 >
                   <option value="" disabled>{categories.length ? 'Select a category' : 'No categories available'}</option>
-                  {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+                  {categories.map(c => (
+                    <option key={c._id} value={c._id} title={c.description}>
+                      {c.name}{c.description ? ` — ${c.description}` : ''}
+                    </option>
+                  ))}
                 </select>
               </div>
 
