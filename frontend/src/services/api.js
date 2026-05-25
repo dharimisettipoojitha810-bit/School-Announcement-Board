@@ -23,9 +23,16 @@ const fetchAPI = async (endpoint, options = {}) => {
     headers
   });
 
-  const data = await response.json();
+  let data;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    const text = await response.text();
+    throw new Error(`Invalid JSON response from server: ${text}`);
+  }
+
   if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong');
+    throw new Error(data?.message || 'Something went wrong');
   }
 
   return data;
