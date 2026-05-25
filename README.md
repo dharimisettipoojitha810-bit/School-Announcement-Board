@@ -90,7 +90,7 @@ To deploy on Render:
    - `MONGODB_URI`
    - `JWT_SECRET`
 4. Add the following environment variable to the frontend service:
-   - `VITE_API_URL=https://<your-backend-service>.onrender.com`
+   - `VITE_API_URL=https://school-announcement-board.onrender.com`
 
 If your backend and frontend are deployed to the same domain or you use a proxy, `VITE_API_URL` can also remain blank and the frontend will use relative paths.
 

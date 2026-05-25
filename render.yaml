@@ -19,4 +19,4 @@ services:
     publishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://<your-backend-service>.onrender.com
+        value: https://school-announcement-board.onrender.com
