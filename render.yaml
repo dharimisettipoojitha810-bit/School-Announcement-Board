@@ -1,15 +1,4 @@
 services:
-  - type: web
-    name: school-announcement-board-backend
-    env: node
-    region: oregon
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
-
   - type: static_site
     name: school-announcement-board-frontend
     env: static
@@ -19,4 +8,4 @@ services:
     publishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://school-announcement-board.onrender.com
+        value: https://<your-vercel-backend-url>

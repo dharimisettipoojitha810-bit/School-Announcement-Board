@@ -75,24 +75,26 @@ Built using a premium, modern dark-glass theme (Glassmorphism), this application
    ```
    *(Note: If using Atlas, create a database user and whitelist your IP address or allow access from `0.0.0.0/0`.)*
 
-### Render Deployment
+### Deployment (Render frontend + Vercel backend)
 
-This repo includes a `render.yaml` file for Render.com deployment. It defines two services:
+This repo can deploy the frontend to Render as a static site while the backend runs separately on Vercel.
 
-- `school-announcement-board-backend` (Node web service)
-- `school-announcement-board-frontend` (Static site built with Vite)
-
-To deploy on Render:
+To deploy the frontend on Render:
 
 1. Push the repo to GitHub.
 2. Connect the repository in Render.
-3. Add the following environment variables to the backend service:
+3. Use the existing `render.yaml` file, which now defines only the frontend static site.
+4. Add the following environment variable to the Render frontend service:
+   - `VITE_API_URL=https://<your-vercel-backend-url>`
+
+To deploy the backend on Vercel:
+
+1. Connect the `backend` folder as the Vercel project root or configure Vercel to use the backend directory.
+2. Set the backend environment variables in Vercel:
    - `MONGODB_URI`
    - `JWT_SECRET`
-4. Add the following environment variable to the frontend service:
-   - `VITE_API_URL=https://school-announcement-board.onrender.com`
 
-If your backend and frontend are deployed to the same domain or you use a proxy, `VITE_API_URL` can also remain blank and the frontend will use relative paths.
+If your backend and frontend are later deployed to the same origin or you use a proxy, `VITE_API_URL` can remain blank and the frontend will use relative paths.
 
 ### Optional automatic push setup
 
