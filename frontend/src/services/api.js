@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || '';
+const defaultBackendUrl = 'https://school-announcement-board.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || (import.meta.env.PROD ? defaultBackendUrl : '');
 const API_URL = API_BASE_URL ? `${API_BASE_URL.replace(/\/$/, '')}/api` : '/api';
 
 // Simple helper to perform API calls with auth token attachment
@@ -29,11 +30,11 @@ const fetchAPI = async (endpoint, options = {}) => {
     data = await response.json();
   } catch (parseError) {
     const text = await responseClone.text();
-    throw new Error(`Invalid JSON response from server: ${text || parseError.message}`);
+    throw new Error(`Invalid JSON response from server for ${API_URL}${endpoint}: ${text || parseError.message}`);
   }
 
   if (!response.ok) {
-    throw new Error(data?.message || `Request failed with status ${response.status}`);
+    throw new Error(data?.message || `Request to ${API_URL}${endpoint} failed with status ${response.status}`);
   }
 
   return data;
