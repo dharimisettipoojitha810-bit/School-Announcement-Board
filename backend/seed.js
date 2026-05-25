@@ -110,7 +110,28 @@ const seedData = async () => {
       createdBy: admin._id
     });
 
-    console.log('Seeded 4 category tags (Sports, Academics, Holidays, Emergencies).');
+    const events = await Category.create({
+      name: 'Events',
+      description: 'School programs, assemblies, and special activities',
+      colorHex: '#F59E0B', // Amber
+      createdBy: admin._id
+    });
+
+    const clubs = await Category.create({
+      name: 'Clubs',
+      description: 'Club meetings, tryouts, and membership details',
+      colorHex: '#22C55E', // Green
+      createdBy: admin._id
+    });
+
+    const transport = await Category.create({
+      name: 'Transportation',
+      description: 'Bus routes, pick-up changes, and travel updates',
+      colorHex: '#0EA5E9', // Blue
+      createdBy: admin._id
+    });
+
+    console.log('Seeded 7 category tags (Sports, Academics, Holidays, Emergencies, Events, Clubs, Transportation).');
 
     // 3. Create Announcements
     const announcement1 = await Announcement.create({
