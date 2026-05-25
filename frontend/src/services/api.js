@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || '';
 const API_URL = API_BASE_URL ? `${API_BASE_URL.replace(/\/$/, '')}/api` : '/api';
 
 // Simple helper to perform API calls with auth token attachment

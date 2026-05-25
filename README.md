@@ -87,6 +87,9 @@ To deploy the frontend on Render:
 4. Add the following environment variable to the Render frontend service:
    - `VITE_API_URL=https://<your-vercel-backend-url>`
 
+   Optionally, you can also set:
+   - `VITE_BACKEND_URL=https://<your-vercel-backend-url>`
+
 To deploy the backend on Vercel:
 
 1. Connect the `backend` folder as the Vercel project root or configure Vercel to use the backend directory.
