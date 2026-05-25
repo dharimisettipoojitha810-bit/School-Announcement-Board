@@ -1,11 +1,12 @@
 services:
-  - type: static_site
-    name: school-announcement-board-frontend
-    env: static
+  - type: web
+    name: school-announcement-board-backend
+    env: node
     region: oregon
     plan: free
-    buildCommand: npm install && npm run build:frontend
-    publishPath: frontend/dist
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
     envVars:
-      - key: VITE_API_URL
-        value: https://<your-vercel-backend-url>
+      - key: NODE_ENV
+        value: production
+
