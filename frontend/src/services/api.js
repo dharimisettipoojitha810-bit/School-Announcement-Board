@@ -23,11 +23,12 @@ const fetchAPI = async (endpoint, options = {}) => {
     headers
   });
 
+  const responseClone = response.clone();
   let data;
   try {
     data = await response.json();
   } catch (parseError) {
-    const text = await response.clone().text();
+    const text = await responseClone.text();
     throw new Error(`Invalid JSON response from server: ${text || parseError.message}`);
   }
 
