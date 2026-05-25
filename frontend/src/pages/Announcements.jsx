@@ -268,10 +268,19 @@ const Announcements = () => {
   };
 
   const getCategoryTagColor = (hex) => {
+    if (!hex || typeof hex !== 'string') {
+      return {
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        color: '#3B82F6',
+        borderColor: 'rgba(59,130,246,0.2)'
+      };
+    }
+
+    const normalizedHex = hex.startsWith('#') ? hex : `#${hex}`;
     return {
-      backgroundColor: `${hex}10`,
-      color: hex,
-      borderColor: `${hex}30`
+      backgroundColor: `${normalizedHex}10`,
+      color: normalizedHex,
+      borderColor: `${normalizedHex}30`
     };
   };
 

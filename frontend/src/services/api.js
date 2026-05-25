@@ -19,7 +19,8 @@ const fetchAPI = async (endpoint, options = {}) => {
     options.body = JSON.stringify(options.body);
   }
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
+  const requestUrl = `${API_URL}${endpoint}`;
+  const response = await fetch(requestUrl, {
     ...options,
     headers
   });
@@ -30,11 +31,11 @@ const fetchAPI = async (endpoint, options = {}) => {
     data = await response.json();
   } catch (parseError) {
     const text = await responseClone.text();
-    throw new Error(`Invalid JSON response from server for ${API_URL}${endpoint}: ${text || parseError.message}`);
+    throw new Error(`Invalid JSON response from server for ${requestUrl}: ${text || parseError.message}`);
   }
 
   if (!response.ok) {
-    throw new Error(data?.message || `Request to ${API_URL}${endpoint} failed with status ${response.status}`);
+    throw new Error(data?.message || `Request to ${requestUrl} failed with status ${response.status}`);
   }
 
   return data;
