@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Auto-push after every successful commit.
+echo "Auto-pushing commit to origin..."
+git push origin HEAD

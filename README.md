@@ -94,6 +94,23 @@ To deploy on Render:
 
 If your backend and frontend are deployed to the same domain or you use a proxy, `VITE_API_URL` can also remain blank and the frontend will use relative paths.
 
+### Optional automatic push setup
+
+This repo includes a `.githooks/post-commit` hook that can automatically push every commit to GitHub.
+
+To enable it locally:
+
+```bash
+npm run install-hooks
+```
+
+After that, every successful commit will run:
+
+```bash
+git push origin HEAD
+```
+
+If you prefer not to use the hook, do not run `npm run install-hooks`.
 
 3. **Seed the Database**:
    Preload categories, mock users (Admin, Teachers, Students, Parents), Q&A threads, views, and consent records:
