@@ -87,6 +87,12 @@ const Announcements = () => {
     loadData();
   }, [viewArchived]);
 
+  useEffect(() => {
+    if (categories.length > 0 && !formData.category) {
+      setFormData(prev => ({ ...prev, category: categories[0]._id }));
+    }
+  }, [categories, formData.category]);
+
   // Load details / comments when opening modal
   const openDetails = async (ann) => {
     try {
@@ -760,6 +766,7 @@ const Announcements = () => {
                   className="block w-full px-3 py-2 bg-gray-900 border border-gray-800 rounded-xl text-xs text-white focus:outline-none"
                   required
                 >
+                  <option value="" disabled>{categories.length ? 'Select a category' : 'No categories available'}</option>
                   {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                 </select>
               </div>
