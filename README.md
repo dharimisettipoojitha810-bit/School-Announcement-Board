@@ -66,10 +66,34 @@ Built using a premium, modern dark-glass theme (Glassmorphism), this application
    Create a `backend/.env` file with these values:
    ```env
    PORT=5000
-   MONGODB_URI=mongodb://127.0.0.1:27017/school_board
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.j5raiir.mongodb.net/school_board?retryWrites=true&w=majority
    JWT_SECRET=super_secret_school_board_key_2026
    ```
-   *(Note: The system has pre-seeded this configuration for you).*
+   If you prefer local MongoDB, replace the connection string with:
+   ```env
+   MONGODB_URI=mongodb://127.0.0.1:27017/school_board
+   ```
+   *(Note: If using Atlas, create a database user and whitelist your IP address or allow access from `0.0.0.0/0`.)*
+
+### Render Deployment
+
+This repo includes a `render.yaml` file for Render.com deployment. It defines two services:
+
+- `school-announcement-board-backend` (Node web service)
+- `school-announcement-board-frontend` (Static site built with Vite)
+
+To deploy on Render:
+
+1. Push the repo to GitHub.
+2. Connect the repository in Render.
+3. Add the following environment variables to the backend service:
+   - `MONGODB_URI`
+   - `JWT_SECRET`
+4. Add the following environment variable to the frontend service:
+   - `VITE_API_URL=https://<your-backend-service>.onrender.com`
+
+If your backend and frontend are deployed to the same domain or you use a proxy, `VITE_API_URL` can also remain blank and the frontend will use relative paths.
+
 
 3. **Seed the Database**:
    Preload categories, mock users (Admin, Teachers, Students, Parents), Q&A threads, views, and consent records:

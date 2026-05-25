@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: school-announcement-board-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - type: static_site
+    name: school-announcement-board-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build:frontend
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://<your-backend-service>.onrender.com

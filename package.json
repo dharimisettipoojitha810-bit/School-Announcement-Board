@@ -1,0 +1,14 @@
+{
+  "name": "school-announcement-board",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm install",
+    "build": "npm run build:frontend"
+  }
+}

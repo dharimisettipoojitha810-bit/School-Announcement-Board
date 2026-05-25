@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import api, { API_URL } from '../services/api';
+import api, { API_BASE_URL } from '../services/api';
 import { 
   Plus, 
   Search, 
@@ -520,7 +520,7 @@ const Announcements = () => {
                   {detailsModal.attachments.map((file, i) => (
                     <a
                       key={i}
-                      href={`http://localhost:5000${file.path}`}
+                      href={`${API_BASE_URL}${file.path}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900/40 border border-gray-800 rounded-xl text-xs text-gray-300 hover:text-white transition-all hover:bg-gray-800/40"

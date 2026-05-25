@@ -11,8 +11,8 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error('Database connection error:', error.message);
-    console.error('Please ensure MongoDB is installed and running locally, or update backend/.env MONGODB_URI to a valid MongoDB connection string.');
-    console.error('If you are using local MongoDB, start it with `mongod` or the MongoDB service before running the backend.');
+    console.error('Please ensure MONGODB_URI in backend/.env is set to a valid Atlas or local MongoDB connection string.');
+    console.error('For Atlas, use a connection string like: mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/school_board?retryWrites=true&w=majority');
     process.exit(1);
   }
 };
