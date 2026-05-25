@@ -246,13 +246,28 @@ const Announcements = () => {
     });
   };
 
+  const resolveCategoryValue = (category) => {
+    if (!category) {
+      return { id: '', name: 'Uncategorized', colorHex: '#3B82F6' };
+    }
+
+    if (typeof category === 'string') {
+      return { id: category, name: category, colorHex: '#3B82F6' };
+    }
+
+    const id = category._id?.toString?.() || category.toString?.() || '';
+    const name = category.name || category.toString?.() || 'Uncategorized';
+    const colorHex = category.colorHex || '#3B82F6';
+    return { id, name, colorHex };
+  };
+
   // Client side search and filters mapping
   const filteredAnnouncements = announcements.filter(item => {
     const matchesSearch = 
       item.title.toLowerCase().includes(search.toLowerCase()) ||
       item.content.toLowerCase().includes(search.toLowerCase());
     
-    const categoryId = item.category?._id?.toString?.() || item.category?.toString?.() || '';
+    const { id: categoryId } = resolveCategoryValue(item.category);
     const matchesCategory = selectedCategory ? categoryId === selectedCategory : true;
     const matchesPriority = selectedPriority ? item.priority === selectedPriority : true;
 
@@ -396,10 +411,10 @@ const Announcements = () => {
                       </span>
                     )}
                     <span 
-                      style={getCategoryTagColor(ann.category?.colorHex)}
+                      style={getCategoryTagColor(resolveCategoryValue(ann.category).colorHex)}
                       className="text-[9px] font-extrabold uppercase border px-2 py-0.5 rounded-full tracking-wider"
                     >
-                      {ann.category?.name}
+                      {resolveCategoryValue(ann.category).name}
                     </span>
                   </div>
                   {/* Bookmark Button */}
@@ -462,10 +477,10 @@ const Announcements = () => {
                 {detailsModal.priority}
               </span>
               <span 
-                style={getCategoryTagColor(detailsModal.category?.colorHex)}
+                style={getCategoryTagColor(resolveCategoryValue(detailsModal.category).colorHex)}
                 className="font-bold uppercase border px-2.5 py-0.5 rounded-full"
               >
-                {detailsModal.category?.name}
+                {resolveCategoryValue(detailsModal.category).name}
               </span>
               <span className="text-gray-500 font-mono">Target: {detailsModal.targetAudience.toUpperCase()} {detailsModal.targetValue && `(${detailsModal.targetValue})`}</span>
             </div>
